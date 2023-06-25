@@ -29,7 +29,6 @@
         </div>
         <ul class="list-group list-group-flush">
            <li class="list-group-item"><i class="fa fa-envelope float-right"></i>{{employee?.email}}</li>
-           <li class="list-group-item"><i class="fa fa-phone float-right"></i>Phone : {{employee?.phone}}</li>
         </ul>
         <div class="card-body">
            <div class="float-right btn-group btn-group-sm">
@@ -94,25 +93,25 @@
            <form #editForm="ngForm">
               <div class="form-group">
                  <label for="name">Name</label>
-                 <input type="text" name="name" class="form-control" id="name" aria-describedby="emailHelp" placeholder="Name">
+                 <input type="text" ngModel="{{editEmployee?.name}}" name="name" class="form-control" id="name" aria-describedby="emailHelp" placeholder="Name">
               </div>
               <input type="hidden" name="id" class="form-control" id="id" placeholder="Email">
               <input type="hidden" name="userCode" class="form-control" id="userCode" placeholder="Email">
               <div class="form-group">
                  <label for="email">Email Address</label>
-                 <input type="email" name="email" class="form-control" id="email" placeholder="Email">
+                 <input ngModel="{{editEmployee?.email}}" type="email" name="email" class="form-control" id="email" placeholder="Email">
               </div>
               <div class="form-group">
                  <label for="phone">Job title</label>
-                 <input type="text" name="jobTitle" class="form-control" id="jobTitle" placeholder="Job title">
+                 <input type="text" ngModel="{{editEmployee?.jobType}}" name="jobTitle" class="form-control" id="jobTitle" placeholder="Job title">
               </div>
               <div class="form-group">
                  <label for="phone">Image URL</label>
-                 <input type="text" name="imageUrl" class="form-control" id="imageUrl" placeholder="Image URL">
+                 <input type="text" ngModel="{{editEmployee?.imageUrl}}" name="imageUrl" class="form-control" id="imageUrl" placeholder="Image URL">
               </div>
               <div class="modal-footer">
-                 <button type="button" id="" data-dismiss="modal" class="btn btn-secondary">Close</button>
-                 <button data-dismiss="modal" class="btn btn-primary" >Save changes</button>
+                 <button type="button" id="update-employee-form" data-dismiss="modal" class="btn btn-secondary">Close</button>
+                 <button (click)="onUpdateEmployee(editForm.value)" data-dismiss="modal" class="btn btn-primary" >Save changes</button>
               </div>
            </form>
         </div>

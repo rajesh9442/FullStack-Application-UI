@@ -12,6 +12,7 @@ import { NgForm } from '@angular/forms';
 export class AppComponent {
   title = 'employeemanagerapp';
   employees: Employee[] = [];
+  public editEmployee: Employee | null=null;
 
   constructor(private employeeService: EmployeeService) {}
 
@@ -41,6 +42,7 @@ export class AppComponent {
       button.setAttribute('data-target','#addEmployeeModal');
     }
     if(mode==='edit'){
+      this.editEmployee = employee;
       button.setAttribute('data-target','#updateEmployeeModal');
     }
     if(mode==='delete'){
@@ -53,6 +55,18 @@ export class AppComponent {
   public onAddEmployee(addForm:NgForm):void{
     document.getElementById('add-employee-form')?.click();
     this.employeeService.addEmployee(addForm.value).subscribe(
+      (response:Employee)=>{
+        console.log(response);
+        this.getEmployees();
+      },
+      (error:HttpErrorResponse)=>{
+        alert(error.message);
+      }
+      );
+  }
+
+  public onUpdateEmployee(employee:Employee):void{
+    this.employeeService.updateEmployee(employee).subscribe(
       (response:Employee)=>{
         console.log(response);
         this.getEmployees();
