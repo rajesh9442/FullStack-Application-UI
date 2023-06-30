@@ -13,6 +13,7 @@ export class AppComponent {
   title = 'employeemanagerapp';
   employees: Employee[] = [];
   public editEmployee: Employee | null=null;
+  public deleteEmployee: Employee | null=null;
 
   constructor(private employeeService: EmployeeService) {}
 
@@ -46,6 +47,7 @@ export class AppComponent {
       button.setAttribute('data-target','#updateEmployeeModal');
     }
     if(mode==='delete'){
+      this.deleteEmployee = employee;
       button.setAttribute('data-target','#deleteEmployeeModal');
     }
     container?.appendChild(button);
@@ -58,6 +60,8 @@ export class AppComponent {
       (response:Employee)=>{
         console.log(response);
         this.getEmployees();
+        addForm.reset();
+        this.ngOnInit();
       },
       (error:HttpErrorResponse)=>{
         alert(error.message);
@@ -68,6 +72,18 @@ export class AppComponent {
   public onUpdateEmployee(employee:Employee):void{
     this.employeeService.updateEmployee(employee).subscribe(
       (response:Employee)=>{
+        console.log(response);
+        this.getEmployees();
+      },
+      (error:HttpErrorResponse)=>{
+        alert(error.message);
+      }
+      );
+  }
+
+  public onDeleteEmployee(employeeId:number):void{
+    this.employeeService.deleteEmployee(employeeId).subscribe(
+      (response:void)=>{
         console.log(response);
         this.getEmployees();
       },
